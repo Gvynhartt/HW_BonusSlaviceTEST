@@ -10,12 +10,12 @@ public class BonusServiceTest {
         BonusService Service = new BonusService();
 
         // подготавливаем данные:
-        long Amount = 1000;
+        int Amount = 1000;
         boolean Registered = true;
-        long Expected = 30;
+        int Expected = 30;
 
         // вызываем целевой метод:
-        long Actual = Service.calculate(Amount, Registered);
+        int Actual = Service.calculate(Amount, Registered);
 
         // производим проверку (сравниваем ожидаемый и фактический):
         Assertions.assertEquals(Expected, Actual);
@@ -26,12 +26,12 @@ public class BonusServiceTest {
         BonusService Service = new BonusService();
 
         // подготавливаем данные:
-        long Amount = 1_000_000;
+        int Amount = 1_000_000;
         boolean Registered = true;
-        long Expected = 500;
+        int Expected = 500;
 
         // вызываем целевой метод:
-        long Actual = Service.calculate(Amount, Registered);
+        int Actual = Service.calculate(Amount, Registered);
 
         // производим проверку (сравниваем ожидаемый и фактический):
         Assertions.assertEquals(Expected, Actual);
@@ -42,12 +42,12 @@ public class BonusServiceTest {
         BonusService Service = new BonusService();
 
         // подготавливаем данные:
-        long Amount = 1000;
+        int Amount = 1000;
         boolean Registered = false;
-        long Expected = 10;
+        int Expected = 10;
 
         // вызываем целевой метод:
-        long Actual = Service.calculate(Amount, Registered);
+        int Actual = Service.calculate(Amount, Registered);
 
         // производим проверку (сравниваем ожидаемый и фактический):
         Assertions.assertEquals(Expected, Actual);
@@ -58,12 +58,12 @@ public class BonusServiceTest {
         BonusService Service = new BonusService();
 
         // подготавливаем данные:
-        long Amount = 1_000_000;
+        int Amount = 1_000_000;
         boolean Registered = false;
-        long Expected = 500;
+        int Expected = 500;
 
         // вызываем целевой метод:
-        long Actual = Service.calculate(Amount, Registered);
+        int Actual = Service.calculate(Amount, Registered);
 
         // производим проверку (сравниваем ожидаемый и фактический):
         Assertions.assertEquals(Expected, Actual);
@@ -74,28 +74,28 @@ public class BonusServiceTest {
         BonusService Service = new BonusService();
 
         // подготавливаем данные:
-        long Amount = 1_000_000;
+        int Amount = 1_000_000;
         boolean Registered = false;
-        long Expected = 500;
+        int Expected = 500;
 
         // вызываем целевой метод:
-        long Actual = Service.calculate(Amount, Registered);
+        int Actual = Service.calculate(Amount, Registered);
 
         // производим проверку (сравниваем ожидаемый и фактический):
         Assertions.assertEquals(Actual, Expected);
     }
 
-    @Test //проверка Integer в assertEquals
+    @Test //проверка околограничных значений при подсчёте в Bonus service при регистрации
     void shouldCalculateBonusAroundLimit4Registered() {
         BonusService Service = new BonusService();
 
         // подготавливаем данные:
-        long Amount = 16_666;
+        int Amount = 16_666;
         boolean Registered = true;
-        long Expected = 499;
+        int Expected = 499;
 
         // вызываем целевой метод:
-        long Actual = Service.calculate(Amount, Registered);
+        int Actual = Service.calculate(Amount, Registered);
 
         System.out.println("Подсчитанный бонус для зарегистрированного: " + Actual + " руб.");
 
@@ -103,17 +103,17 @@ public class BonusServiceTest {
         Assertions.assertEquals(Actual, Expected);
     }
 
-    @Test //проверка Integer в assertEquals
+    @Test //проверка околограничных значений при подсчёте в Bonus service без регистрации
     void shouldCalculateBonusAroundLimit4Bomzh() {
         BonusService Service = new BonusService();
 
         // подготавливаем данные:
-        long Amount = 49_987;
+        int Amount = 49_987;
         boolean Registered = true;
-        long Expected = 500;
+        int Expected = 500;
 
         // вызываем целевой метод:
-        long Actual = Service.calculate(Amount, Registered);
+        int Actual = Service.calculate(Amount, Registered);
 
         System.out.println("Подсчитанный бонус для незарегистрированного: " + Actual + " руб.");
 
