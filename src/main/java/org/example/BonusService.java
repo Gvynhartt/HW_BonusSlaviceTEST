@@ -3,7 +3,7 @@ package org.example;
 public class BonusService {
     public int calculate(int Amount, boolean Registered) {
         // Тест на околограничные значения для зарегистированного не проходил из-за неудачного написания метода
-        // BonusService, который неправильно округлял частное при подсчёте Bonus.
+        // BonusService, который неправильно округлял частное при подсчёте Bonus [BonusServiceTest.java, строки 88—104]
         int Percent = Registered ? 3 : 1;
         int Bonus = (int) Math.round(Amount * Percent/ 100); //я гуманитарий, отстаньте, пожалуйста
         int Limit = 500;
