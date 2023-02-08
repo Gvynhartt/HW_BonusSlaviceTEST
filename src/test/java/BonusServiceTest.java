@@ -2,17 +2,21 @@ package org.example;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 
 public class BonusServiceTest {
 
-    @Test
-    void shouldCalculateForRegisteredAndUnderLimit() {
+    @ParameterizedTest // для зарегистрированных и ниже лимита
+        @CsvFileSource(resources ="/data.csv")
+
+    void shouldCalculateForRegisteredAndUnderLimit(int Amount, int Expected, boolean Registered) {
         BonusService Service = new BonusService();
 
         // подготавливаем данные:
-        int Amount = 1000;
-        boolean Registered = true;
-        int Expected = 30;
+        //int Amount = 1000;
+        //boolean Registered = true;
+        //int Expected = 30;
 
         // вызываем целевой метод:
         int Actual = Service.calculate(Amount, Registered);
@@ -21,14 +25,15 @@ public class BonusServiceTest {
         Assertions.assertEquals(Expected, Actual);
     }
 
-    @Test
-    void shouldCalculateForRegisteredAndOverLimit() {
+    @ParameterizedTest // для зарегистрированных и выше лимита
+        @CsvFileSource(resources ="/data.csv")
+    void shouldCalculateForRegisteredAndOverLimit(int Amount, int Expected, boolean Registered) {
         BonusService Service = new BonusService();
 
         // подготавливаем данные:
-        int Amount = 1_000_000;
-        boolean Registered = true;
-        int Expected = 500;
+        // int Amount = 1_000_000;
+        // boolean Registered = true;
+        // int Expected = 500;
 
         // вызываем целевой метод:
         int Actual = Service.calculate(Amount, Registered);
@@ -37,14 +42,15 @@ public class BonusServiceTest {
         Assertions.assertEquals(Expected, Actual);
     }
 
-    @Test //проверка для незарегистрированных юзеров ниже лимита
-    void shouldCalculateForBomzhAndUnderLimit() {
+    @ParameterizedTest //проверка для незарегистрированных юзеров ниже лимита
+        @CsvFileSource(resources ="/data.csv")
+    void shouldCalculateForBomzhAndUnderLimit(int Amount, int Expected, boolean Registered) {
         BonusService Service = new BonusService();
 
         // подготавливаем данные:
-        int Amount = 1000;
-        boolean Registered = false;
-        int Expected = 10;
+        // int Amount = 1000;
+        // boolean Registered = false;
+        // int Expected = 10;
 
         // вызываем целевой метод:
         int Actual = Service.calculate(Amount, Registered);
@@ -53,14 +59,15 @@ public class BonusServiceTest {
         Assertions.assertEquals(Expected, Actual);
     }
 
-    @Test //проверка для незарегистрированных юзеров выше лимита
-    void shouldCalculateForBomzhAndOverLimit() {
+    @ParameterizedTest //проверка для незарегистрированных юзеров выше лимита
+     @CsvFileSource(resources = "/data.csv")
+    void shouldCalculateForBomzhAndOverLimit(int Amount, int Expected, boolean Registered) {
         BonusService Service = new BonusService();
 
         // подготавливаем данные:
-        int Amount = 1_000_000;
-        boolean Registered = false;
-        int Expected = 500;
+        // int Amount = 1_000_000;
+        // boolean Registered = false;
+        // int Expected = 500;
 
         // вызываем целевой метод:
         int Actual = Service.calculate(Amount, Registered);
@@ -69,14 +76,15 @@ public class BonusServiceTest {
         Assertions.assertEquals(Expected, Actual);
     }
 
-    @Test //проверка Integer в assertEquals
-    void shouldCalculateForIntWithLongInput() {
+    @ParameterizedTest //проверка Integer в assertEquals
+        @CsvFileSource(resources = "/data.csv")
+    void shouldCalculateForIntWithLongInput(int Amount, int Expected, boolean Registered) {
         BonusService Service = new BonusService();
 
         // подготавливаем данные:
-        int Amount = 1_000_000;
-        boolean Registered = false;
-        int Expected = 500;
+        // int Amount = 1_000_000;
+        // boolean Registered = false;
+        // int Expected = 500;
 
         // вызываем целевой метод:
         int Actual = Service.calculate(Amount, Registered);
@@ -85,14 +93,15 @@ public class BonusServiceTest {
         Assertions.assertEquals(Actual, Expected);
     }
 
-    @Test //проверка околограничных значений при подсчёте в Bonus service при регистрации
-    void shouldCalculateBonusAroundLimit4Registered() {
+    @ParameterizedTest // проверка околограничных значений при подсчёте в Bonus service при регистрации
+        @CsvFileSource(resources = "/data.csv")
+    void shouldCalculateBonusAroundLimit4Registered(int Amount, int Expected, boolean Registered) {
         BonusService Service = new BonusService();
 
         // подготавливаем данные:
-        int Amount = 16_666;
-        boolean Registered = true;
-        int Expected = 499;
+        //int Amount = 16_666;
+        //boolean Registered = true;
+        //int Expected = 499;
 
         // вызываем целевой метод:
         int Actual = Service.calculate(Amount, Registered);
@@ -103,14 +112,15 @@ public class BonusServiceTest {
         Assertions.assertEquals(Actual, Expected);
     }
 
-    @Test //проверка околограничных значений при подсчёте в Bonus service без регистрации
-    void shouldCalculateBonusAroundLimit4Bomzh() {
+    @ParameterizedTest // проверка околограничных значений при подсчёте в Bonus service без регистрации
+        @CsvFileSource(resources = "/data.csv")
+    void shouldCalculateBonusAroundLimit4Bomzh(int Amount, int Expected, boolean Registered) {
         BonusService Service = new BonusService();
 
         // подготавливаем данные:
-        int Amount = 49_987;
-        boolean Registered = true;
-        int Expected = 500;
+        // int Amount = 49_987;
+        // boolean Registered = true;
+        // int Expected = 500;
 
         // вызываем целевой метод:
         int Actual = Service.calculate(Amount, Registered);
