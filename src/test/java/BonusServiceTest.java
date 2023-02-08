@@ -8,7 +8,7 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 public class BonusServiceTest {
 
     @ParameterizedTest // для зарегистрированных и ниже лимита
-        @CsvFileSource(resources ="/data.csv")
+        @CsvFileSource(resources ="/test_(reg_under).csv")
 
     void shouldCalculateForRegisteredAndUnderLimit(int Amount, int Expected, boolean Registered) {
         BonusService Service = new BonusService();
@@ -26,7 +26,7 @@ public class BonusServiceTest {
     }
 
     @ParameterizedTest // для зарегистрированных и выше лимита
-        @CsvFileSource(resources ="/data.csv")
+        @CsvFileSource(resources ="/test_(reg_over).csv")
     void shouldCalculateForRegisteredAndOverLimit(int Amount, int Expected, boolean Registered) {
         BonusService Service = new BonusService();
 
@@ -42,8 +42,8 @@ public class BonusServiceTest {
         Assertions.assertEquals(Expected, Actual);
     }
 
-    @ParameterizedTest //проверка для незарегистрированных юзеров ниже лимита
-        @CsvFileSource(resources ="/data.csv")
+    @ParameterizedTest // проверка для незарегистрированных юзеров ниже лимита
+        @CsvFileSource(resources ="/test_(unreg_under).csv")
     void shouldCalculateForBomzhAndUnderLimit(int Amount, int Expected, boolean Registered) {
         BonusService Service = new BonusService();
 
@@ -59,8 +59,8 @@ public class BonusServiceTest {
         Assertions.assertEquals(Expected, Actual);
     }
 
-    @ParameterizedTest //проверка для незарегистрированных юзеров выше лимита
-     @CsvFileSource(resources = "/data.csv")
+    @ParameterizedTest // проверка для незарегистрированных юзеров выше лимита
+     @CsvFileSource(resources = "/test_(unreg_over).csv")
     void shouldCalculateForBomzhAndOverLimit(int Amount, int Expected, boolean Registered) {
         BonusService Service = new BonusService();
 
@@ -76,8 +76,8 @@ public class BonusServiceTest {
         Assertions.assertEquals(Expected, Actual);
     }
 
-    @ParameterizedTest //проверка Integer в assertEquals
-        @CsvFileSource(resources = "/data.csv")
+    @ParameterizedTest // проверка Integer в assertEquals
+        @CsvFileSource(resources = "/test_(int_assEq).csv")
     void shouldCalculateForIntWithLongInput(int Amount, int Expected, boolean Registered) {
         BonusService Service = new BonusService();
 
@@ -94,7 +94,7 @@ public class BonusServiceTest {
     }
 
     @ParameterizedTest // проверка околограничных значений при подсчёте в Bonus service при регистрации
-        @CsvFileSource(resources = "/data.csv")
+        @CsvFileSource(resources = "/test_(limit_for_reg).csv")
     void shouldCalculateBonusAroundLimit4Registered(int Amount, int Expected, boolean Registered) {
         BonusService Service = new BonusService();
 
@@ -113,14 +113,14 @@ public class BonusServiceTest {
     }
 
     @ParameterizedTest // проверка околограничных значений при подсчёте в Bonus service без регистрации
-        @CsvFileSource(resources = "/data.csv")
+        @CsvFileSource(resources = "/test_(limit_for_unreg).csv")
     void shouldCalculateBonusAroundLimit4Bomzh(int Amount, int Expected, boolean Registered) {
         BonusService Service = new BonusService();
 
         // подготавливаем данные:
         // int Amount = 49_987;
-        // boolean Registered = true;
-        // int Expected = 500;
+        // boolean Registered = false;
+        // int Expected = 499;
 
         // вызываем целевой метод:
         int Actual = Service.calculate(Amount, Registered);
